@@ -1,0 +1,4 @@
+2020-05-06 11:31:16,728 INFO (StartupInfoLogger.java:55)- Starting GeneApplication on DESKTOP-MHHTG86 with PID 15864 (D:\zp\workspace\gene\gene\target\classes started by aaa in D:\zp\workspace\gene\gene)
+2020-05-06 11:31:16,736 INFO (SpringApplication.java:651)- No active profile set, falling back to default profiles: default
+2020-05-06 13:36:34,380 INFO (StartupInfoLogger.java:55)- Starting GeneApplication on DESKTOP-MHHTG86 with PID 8712 (D:\zp\workspace\gene\gene\target\classes started by aaa in D:\zp\workspace\gene\gene)
+2020-05-06 13:36:34,383 INFO (SpringApplication.java:651)- No active profile set, falling back to default profiles: default
