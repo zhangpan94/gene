@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+    <script src="js/index.js"></script>
+</head>
+<body>
+<div>
+    <div id="u0" class="ax_default box_2">
+        <img id="u0_img" class="img " src="images/snp位点分析/u0.svg"/>
+    </div>
+    <div id="u42">
+        <img id="u42_img" class="img " src="images/snp位点分析/u42.svg"/>
+    </div>
+    <div id="u27" class="">
+    </div>
+    <div id="u28" class="ax_default box_2"></div>
+    <div id="u29" class="ax_default box_3"></div>
+    <div id="u30" class="ax_default" data-left="683" data-top="80" data-width="96" data-height="24">
+        <div id="u31" class="ax_default label">
+            <div id="u31_div" class=""></div>
+            <div id="u31_text" class="text ">
+                <p><span>SNP位点分析</span></p>
+            </div>
+        </div>
+    </div>
+    <div id="u32" class="ax_default box_3 ax_default_hidden" data-label="下划线1" style="display:none; visibility: hidden">
+        <div id="u32_div" class=""></div>
+        <div id="u32_text" class="text " style=" visibility: hidden">
+            <p></p>
+        </div>
+    </div>
+    <div id="u43" class="ax_default box_3"></div>
+    <div id="u45" class="ax_default" data-left="849" data-top="80" data-width="64" data-height="24">
+        <div id="u45_div" class=""></div>
+        <div id="u45_text" class="text ">
+            <p><span>基因注释</span></p>
+        </div>
+    </div>
+</div>
+<div class="div-top">
+
+    <h3>Snp位点分析</h3>
+    <div class="aaa">
+        <div class="div-con">
+            <button class="btn btn-default btn-sm" id="form-text">Input GWAS File</button>
+            <button class="btn btn-default btn-sm" id="form-file">Upload GWAS File</button>
+            <label for="filter" style="margin-left: 22%">Filter:<input id="filter" type="text"></label>
+            <div id="input-text">
+                <textarea id="in-gwas" class="form-control" rows="12" placeholder="输入GWAS File"></textarea>
+                <label for="remove-exp" style="margin-right: 10px">
+                    <button class="btn btn-default btn-sm" id="remove-exp">清空</button>
+                </label>
+                <label for="example" style="margin-right: 10px">
+                    <button class="btn btn-default btn-sm" id="example">Example</button>
+                </label>
+            </div>
+            <div><input type="file" id="upload-file" placeholder="请选择GWAS File" style="display: none"
+                        value="请选择GWAS File"></div>
+        </div>
+        <div class="div-right">
+            <div style="margin-left: 60px">
+                <label class="checkbox-inline acut">
+                    <input type="checkbox" name="inlineCheckbox" value="位点扩展">位点扩展
+                </label>
+                <br>
+                <label for="p-value">p value &nbsp;:</label><input id="p-value" class=""><br>
+                <label for="genome">Genome:</label><input id="genome" class=""><br>
+                <label class="checkbox-inline acut">
+                    LD extend :
+                    <input type="checkbox" id="ld-ex" name="inlineCheckbox" value="是否扩展">是否扩展
+                </label>
+                <div class="ld-extend">
+                    <label for="ldr2">LD R2:</label><input id="ldr2" class="" disabled><br>
+                    <label for="people">人 群 :</label><input id="people" class="" disabled><br>
+                </div>
+                <label class="checkbox-inline acut">
+                    <input type="checkbox" name="inlineCheckbox" value="位点扩展">位点注释
+                </label><br>
+                <label class="checkbox-inline acut">
+                    <input type="checkbox" name="inlineCheckbox" value="位点扩展">位点m6A注释
+                </label><br>
+                <label class="checkbox-inline acut">
+                    <input type="checkbox" name="inlineCheckbox" value="位点扩展">位点评级
+                </label><br>
+                <label class="checkbox-inline acut">
+                    <input type="checkbox" name="inlineCheckbox" value="位点扩展">位点功能定位
+                </label><br>
+                <div style="margin-left: 195px">
+                    <button id="sendToUse" class="btn btn-default btn-sm" onclick="sendToUse()">运行</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 650px;margin-top: 20%;margin-left: auto">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <p>运行结果图</p>
+                </div>
+                <div id="main" style="width: 600px;height:400px;"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <div>
+        <div id="result" style="color: red"></div>
+    </div>
+</div>
+<div>
+    <div id="u78" class="ax_default box_2">
+        <div id="u78_div" class=""></div>
+        <div id="u78_text" class="text " style="display:none; visibility: hidden">
+            <p></p>
+        </div>
+    </div>
+    <div id="u81" class="ax_default _文本段落">
+        <div id="u81_div" class=""></div>
+        <div id="u81_text" class="text ">
+            <p><span>01171-808082088</span></p>
+        </div>
+    </div>
+
+    <!-- Unnamed (形状) -->
+    <div id="u82" class="ax_default _形状1">
+        <img id="u82_img" class="img " src="images/snp位点分析/u82.svg"/>
+        <div id="u82_text" class="text " style="display:none; visibility: hidden">
+            <p></p>
+        </div>
+    </div>
+
+    <div id="u85" class="ax_default icon">
+        <img id="u85_img" class="img " src="images/snp位点分析/u85.svg"/>
+        <div id="u85_text" class="text " style="display:none; visibility: hidden">
+            <p></p>
+        </div>
+    </div>
+    <div id="u84" class="ax_default _文本段落">
+        <div id="u84_div" class=""></div>
+        <div id="u84_text" class="text ">
+            <p><span>杭州市余杭区龙舟路6号炬华科技产业园</span></p>
+        </div>
+    </div>
+    <div id="u86" class="ax_default _图片_">
+        <img id="u86_img" class="img " src="images/snp位点分析/u86.svg"/>
+        <div id="u86_text" class="text " style="display:none; visibility: hidden">
+            <p></p>
+        </div>
+    </div>
+
+    <!-- Unnamed (矩形) -->
+    <div id="u87" class="ax_default _文本段落">
+        <div id="u87_div" class=""></div>
+        <div id="u87_text" class="text ">
+            <p><span>feedback@snp.com</span></p>
+        </div>
+    </div>
+    <div id="u79" class="ax_default _文本段落">
+        <div id="u79_div" class=""></div>
+        <div id="u79_text" class="text ">
+            <p><span>Copyright © 2020 - 2021 SNP.com All Rights Reserved</span></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#form-text").click(function () {
+        $("#input-text").show();
+        $("#upload-file").hide();
+        $("#upload-file").val("");
+    });
+    $("#form-file").click(function () {
+        $("#upload-file").show();
+        $("#input-text").hide();
+    });
+    $("#ld-ex").click(function () {
+        if ($(this).prop("checked")) {
+            $('#ldr2').attr("disabled", false);
+            $('#people').attr("disabled", false);
+        } else {
+            $('#ldr2').attr("disabled", true);
+            $('#people').attr("disabled", true);
+        }
+    });
+    $("#example").click(function () {
+        $("#in-gwas").val("chr1\trs4951859\tC\tG\t729679\t0.631\t0.97853\t0.0173\t0.2083\t0\n" +
+            "chr1\trs142557973\tT\tC\t731718\t0.665\t1.01949\t0.0198\t0.3298\t0")
+    });
+    $("#remove-exp").click(function () {
+        $("#in-gwas").val("");
+    })
+
+    function sendToUse() {
+        var formData = new FormData();
+        formData.append("uploadFile", document.getElementById("upload-file").files[0]);
+        formData.append("pvalue", $("#p-value").val());
+        formData.append("snpId", $("#in-gwas").val());
+        console.log($("#upload-file").file);
+        console.log($("#p-value").val());
+        $("#sendToUse").attr({"disabled": "disabled"});
+        $("#sendToUse").html("正在运行...")
+        $.ajax({
+            url: "/siteannotation",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                $("#sendToUse").removeAttr("disabled");
+                $("#sendToUse").html("运行")
+                var date = data.datas;
+                if (date == null) {
+                    return
+                }
+                $("#result").text(JSON.stringify(date));
+                drawBar("main", ['five_UTR', 'three_UTR', 'promoter', 'exon', 'intron', 'repeat'],
+                    [date.five_prime_UTR, date.three_prime_UTR, date.promoter, date.exon, date.intron, date.repeat]);
+                // result(data.datas)
+                $("#myModal").modal("show")
+            },
+            error: function (data) {
+                $("#sendToUse").removeAttr("disabled");
+                $("#sendToUse").html("运行")
+                $('#serverResponse').html(data.status + " : " + data.statusText + " : " + data.responseText);
+            }
+        });
+
+    }
+
+    function result(date) {
+        var dom = document.getElementById("main");
+        var myChart = echarts.init(dom);
+        var options = {
+            //定义一个标题
+            tooltip: {
+                //鼠标悬浮到某柱子时触发的提示信息类型
+                trigger: 'item',
+                position: 'top',
+                formatter: '{c}'
+            },
+            //图形位置
+            grid: {
+                left: '4%',
+                right: '4%',
+                bottom: '4%',
+                top: 30,
+                //图形位置包含坐标轴的刻度标签
+                //如果图形位置调整好缺不包含坐标轴，坐标轴信息会显示不全
+                containLabel: true
+            },
+            title: {
+                text: ''
+            },
+            legend: {
+                data: ['数量']
+            },
+            //X轴设置
+            xAxis: {
+                type: 'category',
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(255,255,255,0.2)',
+                        //x轴想要设置为轴线隐藏，width设置为0
+                        width: 1,
+                        type: 'dashed'
+                    }
+                },
+                //x轴字体样式
+                axisLabel: {
+                    show: true,
+                    fontSize: 12,
+                    color: 'white',
+                    //x轴坐标全部显示
+                    interval: 0
+                },
+                data: ['five_UTR', 'three_UTR', 'promoter', 'exon', 'intron', 'repeat']
+            },
+            yAxis: {
+                type: 'value',
+                //y轴字体样式
+                axisLabel: {
+                    show: true,
+                    color: 'white',
+                    fontSize: 12
+                },
+                //y轴线样式
+                axisLine: {
+                    show: false
+                },
+                //设置与x轴平行的线(分割线)不显示
+                splitLine: {
+                    show: false,
+                    lineStyle: {
+                        //如果显示，设置分割线的宽度，设置为0的话，即为分割线不显示
+                        width: 1
+                    }
+                }
+            },
+            //name=legend.data的时候才能显示图例
+            series: [{
+                name: '数量',
+                type: 'bar',
+                barWidth: '20',
+                //柱子间隔
+                barGap: '20',
+                emphasis: {
+                    itemStyle: {
+                        color: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0,
+                                color: 'rgba(254,136,94,1)' // 0% 处的颜色
+                            }, {
+                                offset: 1,
+                                color: 'rgba(251,46,73,1)' // 100% 处的颜色
+                            }]
+                        }
+                    }
+                },
+                data: [date.five_prime_UTR, date.three_prime_UTR, date.promoter, date.exon, date.intron, date.repeat]
+            }]
+
+        };
+        myChart.setOption(options);
+        var app = {};
+        app.currentIndex = -1;
+        var myTimer = setInterval(
+            function () {
+                var dataLen = myOption.series[0].data.length;
+                if ((app.currentIndex < dataLen - 1)
+                    && myOption.series[0].data[app.currentIndex + 1].value == 0) {
+                    myCharts.dispatchAction({
+                        type: 'downplay',
+                        seriesIndex: 0,
+                        dataIndex: app.currentIndex
+                    });
+                    app.currentIndex = (app.currentIndex + 1) % dataLen;
+                } else {
+                    // 取消之前高亮的图形
+                    myCharts.dispatchAction({
+                        type: 'downplay',
+                        seriesIndex: 0,
+                        dataIndex: app.currentIndex
+                    });
+                    app.currentIndex = (app.currentIndex + 1) % dataLen;
+                    // 高亮当前图形
+                    myCharts.dispatchAction({
+                        type: 'highlight',
+                        seriesIndex: 0,
+                        dataIndex: app.currentIndex
+                    });
+                    // 显示 tooltip
+                    myCharts.dispatchAction({
+                        type: 'showTip',
+                        seriesIndex: 0,
+                        dataIndex: app.currentIndex
+                    });
+                }
+            }, 3000);
+    }
+</script>
+<style>
+    .aaa {
+        display: flex;
+        flex-direction: row;
+    }
+</style>
+</body>
+</html>
