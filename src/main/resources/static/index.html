@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+    <script src="js/index.js"></script>
+</head>
+<body>
+	<div class="all">
+		<div class="header1">
+			<div class="headerTop"></div>
+			<div class="headerBottom">
+        <div class="headerContent">
+          <span>SITE ANALYSIS</span>
+          <div>
+            <span>Docs</span>
+            <span>FAQ</span>
+            <span>Contact</span>
+            <span>Download</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="allContant">
+      <div class="content">
+        <div class="contentNav">
+          <ul class="nav nav-pills">
+            <li role="presentation" class="active">
+              <a href="#">SNP位点分析</a>
+            </li>
+            <li role="presentation">
+              <a href="#">基因注释</a>
+            </li>
+            <li role="presentation">
+              <a href="#">PPI网络预测致病基因</a>
+            </li>
+            <li role="presentation">
+              <a href="#">PPI网络预测致病基因</a>
+            </li>
+            <li role="presentation">
+              <a href="#">SNP位点分析</a>
+            </li>
+          </ul>
+        </div>
+        <div class="content1">
+          <div class="contentLeft">
+            <div class="contentLeftTop">
+              <div>
+                <div class="btn-group" data-toggle='buttons'>
+                  <label for="" class="btn btn-default active groupbutton1">
+                    <input type="radio" class="groupbutton" name="file" id="input">Input GW AS File
+                  </label>
+                  <label for="" class="btn btn-default groupbutton1">
+                    <input type="radio" class="groupbutton" name="file" id="upload">Upload GW AS File
+                  </label>
+                </div>
+              </div>
+              <div>
+                <span>Filter:</span>
+                <input type="text">
+              </div>
+            </div>
+            <div class="contentLeftContent">
+              <textarea name="GW" id="GW" cols="30" rows="10"></textarea>
+              <input type="file" id="upload-file" placeholder="请选择GWAS File" style="display: none" value="请选择GWAS File">
+            </div>
+            <div class="contentLeftBottom">
+              <button type="button" class="btn" id="example">Example</button>
+            </div>
+          </div>
+          <div class="contentRight">
+            <div>
+              <p>
+                <input type="radio" name = 'kuozhan' id="kuozhan1" value=""><label style="margin-left: 10px;" for="kuozhan1">位点拓展</label>
+              </p>
+              <div class="input1">
+                <label for="pvalue" style="margin-right: 8px;">p value:</label>
+                <input type="text" value="" id="pvalue">
+              </div>
+              <div class="input1">
+                <label for="Genome">Genome:</label>
+                <input type="text" value="" id="Genome">
+              </div>
+              <div>
+                <label for="" style="margin-right: 8px;">LD extend:</label>
+                <input type="checkbox" name ='LD1' id="ld1" checked value="LD"><label style="margin-left: 10px;" for="ld1">是否拓展</label>
+                <div class="ld">
+                  <div class="input11">
+                    <label for="LDR2">LD R2:</label>
+                    <input type="text" value="" id="LDR2">
+                  </div>
+                  <div class="input11">
+                    <label for="hum" style="margin-right: 9px;">人 群:</label>
+                    <input type="text" value="" id="hum">
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p>
+                  <input type="radio" name = 'weidian' id="zhushi" value=""><label style="margin-left: 10px;" for="zhushi">位点注释</label>
+                </p>
+                <p>
+                  <input type="radio" name = 'weidian' id="m6a" value=""><label style="margin-left: 10px;" for="m6a">位点m6A注释</label>
+                </p>
+                <p>
+                  <input type="radio" name = 'weidian' id="pingji" value=""><label style="margin-left: 10px;" for="pingji">位点评级</label>
+                </p>
+                <p>
+                  <input type="radio" name = 'weidian' id="gongn" value=""><label style="margin-left: 10px;" for="gongn">位点功能定位</label>
+                </p>
+              </div>
+            </div>
+            <div class="contentRightBottom">
+              <button type="button" class="btn" id="sendToUse" onclick="sendToUse()">运行</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="result">
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 650px;margin-top: 20%;margin-left: auto">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                <p>运行结果图</p>
+              </div>
+              <div id="main" style="width: 600px;height:400px;"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+            <div id="result" style="color: red"></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="footerTop"></div>
+      <div class="footerBottom">
+        <div class="footer1">
+          <p>SITE ANALYSIS</p>
+          <div class="lianxi">
+            <div><img src="./images/u124.svg" alt=""><span>杭州市余杭区龙舟路6号炬华科技产业园</span></div>
+            <div><img src="./images/u121.svg" alt=""><span>01171-808082088</span></div>
+            <div><img src="./images/u125.svg" alt=""><span>feedback@snp.com</span></div>
+          </div>
+          <p>2018 © State Key Laboratory of Tea Plant Biology and Utilization, Anhui Agricultural University, Hefei, 230036, Anhui, China.</p>
+        </div>
+      </div>
+    </div>
+	</div>
+<!-- <div class="div-top">
+    
+</div> -->
+
+<script>
+  $('.groupbutton').focus(function () {
+    if($(".groupbutton:focus")[0].id == 'input'){
+      $("#GW").show();
+      $("#upload-file").hide();
+      $("#upload-file").val("");
+    }else{
+      $("#GW").hide();
+      $("#upload-file").show();
+    }
+  })
+  $('#ld1').click(function () {
+    if($(this).prop("checked")){
+      $('.ld').show()
+    }else{
+      $('.ld').hide()
+      $('#pvalue').value=''
+      $('#Genome').value=''
+    }
+  })
+    $("#ld-ex").click(function () {
+        if ($(this).prop("checked")) {
+            $('#ldr2').attr("disabled", false);
+            $('#people').attr("disabled", false);
+        } else {
+            $('#ldr2').attr("disabled", true);
+            $('#people').attr("disabled", true);
+        }
+    });
+    $("#example").click(function () {
+        $("#GW").val("chr1\trs4951859\tC\tG\t729679\t0.631\t0.97853\t0.0173\t0.2083\t0\n" +
+            "chr1\trs142557973\tT\tC\t731718\t0.665\t1.01949\t0.0198\t0.3298\t0")
+    });
+    function sendToUse() {
+        var formData = new FormData();
+        formData.append("uploadFile", document.getElementById("upload-file").files[0]);
+        formData.append("pvalue", $("#pvalue").val());
+        formData.append("snpId", $("#GW").val());
+        console.log($("#upload-file").file);
+        console.log($("#pvalue").val());
+        $("#sendToUse").attr({"disabled": "disabled"});
+        $("#sendToUse").html("正在运行...")
+        $.ajax({
+            url: "/siteannotation",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                $("#sendToUse").removeAttr("disabled");
+                $("#sendToUse").html("运行")
+                var date = data.datas;
+                if (date == null) {
+                    return
+                }
+                $("#result").text(JSON.stringify(date));
+                drawBar("main", ['five_UTR', 'three_UTR', 'promoter', 'exon', 'intron', 'repeat'],
+                    [date.five_prime_UTR, date.three_prime_UTR, date.promoter, date.exon, date.intron, date.repeat]);
+                // result(data.datas)
+                $("#myModal").modal("show")
+            },
+            error: function (data) {
+                $("#sendToUse").removeAttr("disabled");
+                $("#sendToUse").html("运行")
+                $('#serverResponse').html(data.status + " : " + data.statusText + " : " + data.responseText);
+            }
+        });
+
+    }
+
+    function result(date) {
+        var dom = document.getElementById("main");
+        var myChart = echarts.init(dom);
+        var options = {
+            //定义一个标题
+            tooltip: {
+                //鼠标悬浮到某柱子时触发的提示信息类型
+                trigger: 'item',
+                position: 'top',
+                formatter: '{c}'
+            },
+            //图形位置
+            grid: {
+                left: '4%',
+                right: '4%',
+                bottom: '4%',
+                top: 30,
+                //图形位置包含坐标轴的刻度标签
+                //如果图形位置调整好缺不包含坐标轴，坐标轴信息会显示不全
+                containLabel: true
+            },
+            title: {
+                text: ''
+            },
+            legend: {
+                data: ['数量']
+            },
+            //X轴设置
+            xAxis: {
+                type: 'category',
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: 'rgba(255,255,255,0.2)',
+                        //x轴想要设置为轴线隐藏，width设置为0
+                        width: 1,
+                        type: 'dashed'
+                    }
+                },
+                //x轴字体样式
+                axisLabel: {
+                    show: true,
+                    fontSize: 12,
+                    color: 'white',
+                    //x轴坐标全部显示
+                    interval: 0
+                },
+                data: ['five_UTR', 'three_UTR', 'promoter', 'exon', 'intron', 'repeat']
+            },
+            yAxis: {
+                type: 'value',
+                //y轴字体样式
+                axisLabel: {
+                    show: true,
+                    color: 'white',
+                    fontSize: 12
+                },
+                //y轴线样式
+                axisLine: {
+                    show: false
+                },
+                //设置与x轴平行的线(分割线)不显示
+                splitLine: {
+                    show: false,
+                    lineStyle: {
+                        //如果显示，设置分割线的宽度，设置为0的话，即为分割线不显示
+                        width: 1
+                    }
+                }
+            },
+            //name=legend.data的时候才能显示图例
+            series: [{
+                name: '数量',
+                type: 'bar',
+                barWidth: '20',
+                //柱子间隔
+                barGap: '20',
+                emphasis: {
+                    itemStyle: {
+                        color: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0,
+                                color: 'rgba(254,136,94,1)' // 0% 处的颜色
+                            }, {
+                                offset: 1,
+                                color: 'rgba(251,46,73,1)' // 100% 处的颜色
+                            }]
+                        }
+                    }
+                },
+                data: [date.five_prime_UTR, date.three_prime_UTR, date.promoter, date.exon, date.intron, date.repeat]
+            }]
+
+        };
+        myChart.setOption(options);
+        var app = {};
+        app.currentIndex = -1;
+        var myTimer = setInterval(
+            function () {
+                var dataLen = myOption.series[0].data.length;
+                if ((app.currentIndex < dataLen - 1)
+                    && myOption.series[0].data[app.currentIndex + 1].value == 0) {
+                    myCharts.dispatchAction({
+                        type: 'downplay',
+                        seriesIndex: 0,
+                        dataIndex: app.currentIndex
+                    });
+                    app.currentIndex = (app.currentIndex + 1) % dataLen;
+                } else {
+                    // 取消之前高亮的图形
+                    myCharts.dispatchAction({
+                        type: 'downplay',
+                        seriesIndex: 0,
+                        dataIndex: app.currentIndex
+                    });
+                    app.currentIndex = (app.currentIndex + 1) % dataLen;
+                    // 高亮当前图形
+                    myCharts.dispatchAction({
+                        type: 'highlight',
+                        seriesIndex: 0,
+                        dataIndex: app.currentIndex
+                    });
+                    // 显示 tooltip
+                    myCharts.dispatchAction({
+                        type: 'showTip',
+                        seriesIndex: 0,
+                        dataIndex: app.currentIndex
+                    });
+                }
+            }, 3000);
+    }
+</script>
+<style>
+</style>
+</body>
+</html>
